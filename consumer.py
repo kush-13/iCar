@@ -4,19 +4,20 @@ import os
 from confluent_kafka import Consumer, KafkaException, KafkaError
 
 if __name__ == '__main__':
-    topics = os.environ['CLOUDKARAFKA_TOPIC'].split(",")
+    topics = ['wurdvdfa-testing']
 
     # Consumer configuration
     # See https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
+
     conf = {
-        'bootstrap.servers': os.environ['CLOUDKARAFKA_BROKERS'],
-        'group.id': "%s-consumer" % os.environ['CLOUDKARAFKA_USERNAME'],
+        'bootstrap.servers': 'omnibus-01.srvs.cloudkafka.com:9094,omnibus-02.srvs.cloudkafka.com:9094,omnibus-03.srvs.cloudkafka.com:9094',
         'session.timeout.ms': 6000,
+        'group.id': 'group1',
         'default.topic.config': {'auto.offset.reset': 'smallest'},
         'security.protocol': 'SASL_SSL',
-	'sasl.mechanisms': 'SCRAM-SHA-256',
-        'sasl.username': os.environ['CLOUDKARAFKA_USERNAME'],
-        'sasl.password': os.environ['CLOUDKARAFKA_PASSWORD']
+        'sasl.mechanisms': 'SCRAM-SHA-256',
+        'sasl.username': 'wurdvdfa',
+        'sasl.password': 'tXchfG1MeEi6LBiEX4dZtBTEaPJtDgHc'
     }
 
     c = Consumer(**conf)
