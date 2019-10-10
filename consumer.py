@@ -6,9 +6,6 @@ from confluent_kafka import Consumer, KafkaException, KafkaError
 if __name__ == '__main__':
     topics = ['wurdvdfa-testing']
 
-    # Consumer configuration
-    # See https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
-
     conf = {
         'bootstrap.servers': 'omnibus-01.srvs.cloudkafka.com:9094,omnibus-02.srvs.cloudkafka.com:9094,omnibus-03.srvs.cloudkafka.com:9094',
         'session.timeout.ms': 6000,
@@ -24,27 +21,21 @@ if __name__ == '__main__':
     c.subscribe(topics)
     try:
         while True:
-            msg = c.poll(timeout=1.0)
+            msg = c.poll(timeout=0.2)
             if msg is None:
                 continue
             if msg.error():
-                # Error or event
                 if msg.error().code() == KafkaError._PARTITION_EOF:
-                    # End of partition event
                     sys.stderr.write('%% %s [%d] reached end at offset %d\n' %
                                      (msg.topic(), msg.partition(), msg.offset()))
                 elif msg.error():
-                    # Error
-                    raise KafkaException(msg.error())
+                    print(KafkaException(msg.error()))
             else:
-                # Proper message
-                sys.stderr.write('%% %s [%d] at offset %d with key %s:\n' %
-                                 (msg.topic(), msg.partition(), msg.offset(),
-                                  str(msg.key())))
+                # Motor code to be added here
                 print(msg.value())
 
     except KeyboardInterrupt:
-        sys.stderr.write('%% Aborted by user\n')
+        print('Aborted by user\n')
 
     # Close down consumer to commit final offsets.
     c.close()
