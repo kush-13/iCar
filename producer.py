@@ -48,7 +48,10 @@ def callback(event):
                 sys.stderr.write('%% Local producer queue is full (%d messages awaiting delivery): try again\n' %
                                 len(p))
             p.poll(0)
-
+    elif event.name == 'esc':
+        keyboard.unhook_all()
+        print("EXIT")
+        exit()
 if __name__ == '__main__':
     keyboard.hook(callback,suppress=False)
     
