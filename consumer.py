@@ -32,12 +32,20 @@ if __name__ == '__main__':
                 elif msg.error():
                     print(KafkaException(msg.error()))
             else:
-                print("got msg from producer : ", msg.value())
+                # print("got msg from producer : ", msg.value())
                 # Motor code to be added here
                 contol = json.loads(msg.value().decode("utf-8"))
-                print("control input : ", contol)
-                
-
+                # print("control input : ", contol)
+                if contol.get('w',None):
+                    print("move forward !!")
+                elif contol.get('a',None):
+                    print("move rotate left !!")
+                elif contol.get('s',None):
+                    print("move backward !!")
+                elif contol.get('d',None):
+                    print("rotate right !!")
+                elif contol.get('stop',None):
+                    print("stop !!")
 
     except KeyboardInterrupt:
         print('Aborted by user\n')
