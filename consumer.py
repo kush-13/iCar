@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 
 from confluent_kafka import Consumer, KafkaException, KafkaError
 
@@ -31,8 +32,12 @@ if __name__ == '__main__':
                 elif msg.error():
                     print(KafkaException(msg.error()))
             else:
+                print("got msg from producer : ", msg.value())
                 # Motor code to be added here
-                print(msg.value())
+                contol = json.loads(msg.value().decode("utf-8"))
+                print("control input : ", contol)
+                
+
 
     except KeyboardInterrupt:
         print('Aborted by user\n')
