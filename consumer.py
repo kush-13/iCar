@@ -11,7 +11,7 @@ if __name__ == '__main__':
         'bootstrap.servers': 'omnibus-01.srvs.cloudkafka.com:9094,omnibus-02.srvs.cloudkafka.com:9094,omnibus-03.srvs.cloudkafka.com:9094',
         'session.timeout.ms': 6000,
         'group.id': 'group1',
-        'default.topic.config': {'auto.offset.reset': 'smallest'},
+        'default.topic.config': {'auto.offset.reset': 'latest'},
         'security.protocol': 'SASL_SSL',
         'sasl.mechanisms': 'SCRAM-SHA-256',
         'sasl.username': 'wurdvdfa',
