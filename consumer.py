@@ -17,7 +17,7 @@ if __name__ == '__main__':
         'security.protocol': 'SASL_SSL',
         'sasl.mechanisms': 'SCRAM-SHA-256',
         'sasl.username': 'wurdvdfa',
-        'sasl.password': 'tXchfG1MeEi6LBiEX4dZtBTEaPJtDgHc'
+        'sasl.password': '******pass'
     }
 
     c = Consumer(**conf)
